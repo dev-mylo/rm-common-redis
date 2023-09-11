@@ -1,0 +1,66 @@
+
+/**
+ * rdate 2023-09-11
+ * create by podonghee
+ * version 1.0.0
+ *
+ * RM-COMMON
+ * REDIS MODULE
+ */
+buildscript {
+    ext {
+        springBootVersion = '2.4.2'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+    }
+}
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'idea'
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+repositories {
+    mavenCentral()
+}
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+
+dependencies {
+    implementation 'com.github.dev-mylo:rm-common-core:v1.1.1-release1'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4', version: '1.16'
+
+
+    implementation 'com.github.dev-mylo:rm-common-core:v1.1.1-release1'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.21.1' // 분산 락을 사용하려고 추가
+
+    // APACHE
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-pool2
+    api group: 'org.apache.commons', name: 'commons-pool2', version: '2.9.0'
+
+    // REDIS
+//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis
+    api group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.3.1.RELEASE'
+}
+
